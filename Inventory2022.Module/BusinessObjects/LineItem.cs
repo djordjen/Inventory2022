@@ -29,6 +29,7 @@ namespace Inventory2022.Module.BusinessObjects
             Date = DateTime.Today.AddDays(0 - r.Next(1, 50));
         }
 
+        decimal stockPrice;
         bool levelAffected;
         Warehouse warehouse;
         double balance;
@@ -84,7 +85,7 @@ namespace Inventory2022.Module.BusinessObjects
         }
 
         [Nullable(false)]
-        [Indexed(Name ="IX_LevelAffected")]
+        [Indexed(Name = "IX_LevelAffected")]
         [ToolTip("Level affected")]
         [ModelDefault("Caption", "LA")]
         public bool LevelAffected
@@ -101,6 +102,17 @@ namespace Inventory2022.Module.BusinessObjects
         {
             get { return quantity; }
             set { SetPropertyValue("Quantity", ref quantity, value); }
+        }
+
+        [Nullable(false)]
+        [RuleRequiredField]
+        [DbType("decimal(10, 4)")]
+        [ModelDefault("DisplayFormat", "#,0.0000")]
+        [ModelDefault("EditMask", "###,##0.0000")]
+        public decimal StockPrice
+        {
+            get { return stockPrice; }
+            set { SetPropertyValue("StockPrice", ref stockPrice, value); }
         }
 
         [FetchOnly]

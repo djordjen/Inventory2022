@@ -105,6 +105,9 @@
     <Compile Include="BusinessObjects\Product.cs" />
     <Compile Include="BusinessObjects\Stock.cs" />
     <Compile Include="BusinessObjects\Warehouse.cs" />
+    <Compile Include="Controllers\PreventChangingStock.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\RefreshAfterCommitVC.cs">
       <SubType>Component</SubType>
     </Compile>

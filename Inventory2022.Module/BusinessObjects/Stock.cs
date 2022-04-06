@@ -1,16 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using DevExpress.Xpo;
-using DevExpress.ExpressApp;
-using System.ComponentModel;
-using DevExpress.ExpressApp.DC;
-using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
-using System.Collections.Generic;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
+using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
+using System;
+using System.Linq;
 
 namespace Inventory2022.Module.BusinessObjects
 {
@@ -27,6 +20,11 @@ namespace Inventory2022.Module.BusinessObjects
             base.AfterConstruction();
         }
 
+        DateTime lastRestock;
+        double reserved;
+        DateTime lastChange;
+        decimal stockPrice;
+        decimal _value;
         double balance;
         Warehouse warehouse;
         Product product;
@@ -54,6 +52,56 @@ namespace Inventory2022.Module.BusinessObjects
             get { return balance; }
             set { SetPropertyValue("Balance", ref balance, value); }
         }
+
+        [FetchOnly]
+        [DbType("decimal(5, 2)")]
+        [ModelDefault("AllowEdit", "False")]
+        [ModelDefault("DisplayFormat", "#,0.0000")]
+        public decimal StockPrice
+        {
+            get { return stockPrice; }
+            set { SetPropertyValue("StockPrice", ref stockPrice, value); }
+        }
+
+        [FetchOnly]
+        [DbType("money")]
+        [ModelDefault("AllowEdit", "False")]
+        [ModelDefault("DisplayFormat", "#,0.00")]
+        public decimal Value
+        {
+            get { return _value; }
+            set { SetPropertyValue("Value", ref _value, value); }
+        }
+
+        [FetchOnly]
+        [DbType("smalldatetime")]
+        [ModelDefault("AllowEdit", "False")]
+        [ModelDefault("DisplayFormat", "dd/MM/yyyy HH:mm")]
+        public DateTime LastChange
+        {
+            get { return lastChange; }
+            set { SetPropertyValue("LastChange", ref lastChange, value); }
+        }
+        [FetchOnly]
+        [DbType("smalldatetime")]
+        [ModelDefault("AllowEdit", "False")]
+        [ModelDefault("DisplayFormat", "dd/MM/yyyy HH:mm")]
+        public DateTime LastRestock
+        {
+            get { return lastRestock; }
+            set { SetPropertyValue("LastRestock", ref lastRestock, value); }
+        }
+
+        [FetchOnly]
+        [DbType("decimal(5, 2)")]
+        [ModelDefault("AllowEdit", "False")]
+        [ModelDefault("DisplayFormat", "#,0.00")]
+        public double Reserved
+        {
+            get { return reserved; }
+            set { SetPropertyValue("Reserved", ref reserved, value); }
+        }
+
 
     }
 }
